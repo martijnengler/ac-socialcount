@@ -1,19 +1,36 @@
 <?php
 class ACSC_Response
 {
-  protected $_url           = "";
-  protected $_raw_response  = "";
-  protected $_response      = "";
+  protected $_url             = "";
+  protected $_raw_response    = "";
+  protected $_response        = "";
+  protected $_force_uncached  = false;
 
-  public function __construct($url)
+  public function __construct($url, $force_uncached = false)
   {
-    $this->_url = $url;
+    $this->_url             = $url;
+    $this->_force_uncached  = $force_uncached;
+
     $this->fetch();
     $this->process();
     $this->save_to_cache();
   }
 
   protected function fetch()
+  {
+    if($this->_force_uncached or !($response = $this->fetch_from_cache()))
+    {
+      $response = $this->fetch_from_api();
+    }
+    return $response;
+  }
+
+  protected function fetch_from_cache()
+  {
+
+  }
+
+  protected function fetch_from_api()
   {
     $this->_raw_response = unserialize('a:5:{s:7:"headers";a:17:{s:4:"date";s:29:"Sat, 30 Aug 2014 11:55:01 GMT";s:12:"content-type";s:16:"application/json";s:10:"connection";s:5:"close";s:10:"set-cookie";s:137:"__cfduid=d04b1c3797148bd882e160549b5ddd8a21409399701968; expires=Mon, 23-Dec-2019 23:50:00 GMT; path=/; domain=.sharedcount.com; HttpOnly";s:11:"x-memcached";s:4:"True";s:12:"x-fetch-date";s:29:"Sat, 30-Aug-2014 11:36:06 GMT";s:17:"x-quota-remaining";s:4:"9998";s:12:"x-quota-used";s:1:"2";s:27:"access-control-allow-origin";s:1:"*";s:13:"cache-control";s:20:"public, max-age=7200";s:7:"expires";s:29:"Sat, 30 Aug 2014 13:55:01 GMT";s:4:"vary";s:15:"Accept-Encoding";s:18:"alternate-protocol";s:15:"80:quic,80:quic";s:15:"cf-cache-status";s:3:"HIT";s:6:"server";s:16:"cloudflare-nginx";s:6:"cf-ray";s:20:"1620cc09413706fa-LHR";s:16:"content-encoding";s:4:"gzip";}s:4:"body";s:234:"{"StumbleUpon":0,"Reddit":0,"Delicious":0,"Pinterest":0,"Twitter":1,"Diggs":0,"LinkedIn":0,"Facebook":{"commentsbox_count":0,"click_count":0,"total_count":3,"comment_count":0,"like_count":2,"share_count":1},"GooglePlusOne":2,"Buzz":0}";s:8:"response";a:2:{s:4:"code";i:200;s:7:"message";s:2:"OK";}s:7:"cookies";a:1:{i:0;O:14:"WP_Http_Cookie":6:{s:4:"name";s:8:"__cfduid";s:5:"value";s:46:"d04b1c3797148bd882e160549b5ddd8a21409399701968";s:7:"expires";i:1577145000;s:4:"path";s:1:"/";s:6:"domain";s:16:".sharedcount.com";s:8:"httponly";s:0:"";}}s:8:"filename";N;}');
     return;
