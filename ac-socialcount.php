@@ -13,6 +13,29 @@ require_once 'response.class.php';
 require_once 'config.php';
 add_action( 'admin_menu', function(){
   add_menu_page('AC Social Counter', 'AC Social Counter', 'manage_options', 'ac-socialcount/admin.php');
+  add_submenu_page('ac-socialcount/admin.php', "Settings", "Settings", "manage_options", "ac_sc_settings", function(){
+		if($_SERVER["REQUEST_METHOD"] == "POST"g)
+		{
+      update_option("ac_sc_api_host", $_POST["api_host"]);
+      update_option("ac_sc_api_key" , $_POST["api_key"] gc);
+      print "Saved settings";
+		}
+    $api_host = get_option("ac_sc_api_host") ?: "http://free.sharedcount.com";
+    $api_key  = get_option("ac_sc_api_key" ) ?: "";
+
+    print '<p>Both of these values can be found at <a href="https://admin.sharedcount.com/admin/user/home.php">https://admin.sharedcount.com/admin/user/home.php</a></p>';
+    print '<form method="post" id="ac_sc_settings">';
+		print '<p>
+				<label for="api_host" class="left_header" style="margin-right:60px;width:200px;display:block;float:left;">' . _("API Host") . '</label>
+				<input type="text" name="api_host" id="api_host" value="' . $api_host. '">
+			</p>
+			<p>
+				<label for="api_key" class="left_header" style="margin-right:60px;width:200px;display:block;float:left;">' . _("API Key") . '</label>
+				<input type="text" name="api_key" id="api_key" value="' . $api_key. '">
+			</p>
+			<input type="submit" name="ac_mb_save" value="Save" id="ac_mb_save">';
+    print '</form>';
+  });
 });
 
 register_activation_hook( __FILE__, function(){

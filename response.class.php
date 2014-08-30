@@ -38,7 +38,7 @@ class ACSC_Response
 
   protected function fetch_from_api()
   {
-    $api_url  = sprintf(AC_SC_API_HOST . "?apikey=%s&url=%s", AC_SC_API_KEY, urlencode($this->_url));
+    $api_url  = sprintf(get_option("ac_sc_api_host") . "?apikey=%s&url=%s", get_option("ac_sc_api_key" ), urlencode($this->_url));
     $this->_raw_response = wp_remote_get($api_url);
   }
 
