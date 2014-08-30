@@ -8,6 +8,7 @@ Version: 1.0
 Author: Martijn Engler
 Author URI: http://applecoach.nl/
 */
+require_once 'socialcount.class.php';
 add_action( 'admin_menu', function(){
   add_menu_page('AC Social Counter', 'AC Social Counter', 'manage_options', 'ac-socialcount/admin.php');
 });
