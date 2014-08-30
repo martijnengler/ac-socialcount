@@ -45,7 +45,20 @@ class ACSC_Response
   protected function process()
   {
     // TODO: need to do some error handling here, for now just assume everything's okay for this quick prototype
-    $this->_response = json_decode($this->_raw_response["body"], true);
+    if ( is_wp_error( $response ) ) {
+       $error_message = $response->get_error_message();
+       echo "Something went wrong: $error_message";
+    } else {
+      $this->_response = json_decode($this->_raw_response["body"], true);
+      // flatten the array real quick, in a hackish way
+      $response = $this->_response;
+      foreach($this->_response["Facebook"] as $k => $v)
+      {
+        $response['facebook_' . $k] = $v;
+      }
+      unset($response['facebook_total_count'], $response['Facebook']);
+      $this->_response = $response;
+    }
   }
 
   protected function save_to_cache()
@@ -77,14 +90,7 @@ class ACSC_Response
 
   public function get_response()
   {
-    // flatten the array real quick, in a hackish way
-    $response = $this->_response;
-    foreach($this->_response["Facebook"] as $k => $v)
-    {
-      $response['facebook_' . $k] = $v;
-    }
-    unset($response['facebook_total_count'], $response['Facebook']);
-    return $response;
+    return $this->_response;
   }
 
   public function get_human_error()
