@@ -17,8 +17,7 @@ class AC_SocialCount
 
   public function calculate_score()
   {
-    // Facebook scores are divided into likes, comments etc. so we need to add those up separately
-    $this->_score = (array_sum($this->_scores) + $this->_scores["Facebook"]["total_count"]);
+    $this->_score = array_sum($this->_scores);
   }
 
   public function get_score($force_uncached = false)

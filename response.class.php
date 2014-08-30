@@ -77,7 +77,14 @@ class ACSC_Response
 
   public function get_response()
   {
-    return $this->_response;
+    // flatten the array real quick, in a hackish way
+    $response = $this->_response;
+    foreach($this->_response["Facebook"] as $k => $v)
+    {
+      $response['facebook_' . $k] = $v;
+    }
+    unset($response['facebook_total_count'], $response['Facebook']);
+    return $response;
   }
 
   public function get_human_error()
