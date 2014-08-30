@@ -1,7 +1,7 @@
 <?php
 // if the script actually needs to fetch all the data from the API, this can take a while…
 set_time_limit(0);
-$the_query = new WP_Query('post_type=post&post_status=publish&posts_per_page=50');
+$the_query = new WP_Query('post_type=post&post_status=publish&posts_per_page=500');
 if($the_query->have_posts())
 {
 	while($the_query->have_posts())
