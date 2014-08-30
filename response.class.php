@@ -22,10 +22,13 @@ class ACSC_Response
 
   protected function process()
   {
+    // TODO: need to do some error handling here, for now just assume everything's okay for this quick prototype
+    $this->_response = json_decode($this->_raw_response["body"], true);
   }
 
   public function get_response()
   {
+    return $this->_response;
   }
 
   public function get_human_error()
