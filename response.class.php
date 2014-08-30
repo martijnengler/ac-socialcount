@@ -7,7 +7,7 @@ class ACSC_Response
 
   public function __construct($url)
   {
-    $this->_url       = $url;
+    $this->_url = $url;
     $this->fetch();
     $this->process();
   }
