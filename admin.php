@@ -7,7 +7,7 @@ if($the_query->have_posts())
 	while($the_query->have_posts())
   {
     $the_query->the_post();
-    $count = new AC_SocialCount(get_the_permalink());
+    $count = new AC_SocialCount(get_the_ID(), get_the_permalink());
     $counts[get_the_ID()] = array("title" => get_the_title(), "permalink" => get_the_permalink(), "score" => $count->get_score());
   }
 }

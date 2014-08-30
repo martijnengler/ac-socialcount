@@ -10,14 +10,13 @@ Author URI: http://applecoach.nl/
 */
 require_once 'socialcount.class.php';
 require_once 'response.class.php';
-require_once 'config.php';
 add_action( 'admin_menu', function(){
   add_menu_page('AC Social Counter', 'AC Social Counter', 'manage_options', 'ac-socialcount/admin.php');
   add_submenu_page('ac-socialcount/admin.php', "Settings", "Settings", "manage_options", "ac_sc_settings", function(){
-		if($_SERVER["REQUEST_METHOD"] == "POST"g)
+		if($_SERVER["REQUEST_METHOD"] == "POST")
 		{
       update_option("ac_sc_api_host", $_POST["api_host"]);
-      update_option("ac_sc_api_key" , $_POST["api_key"] gc);
+      update_option("ac_sc_api_key" , $_POST["api_key"]);
       print "Saved settings";
 		}
     $api_host = get_option("ac_sc_api_host") ?: "http://free.sharedcount.com";
