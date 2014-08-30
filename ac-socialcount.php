@@ -1,5 +1,4 @@
 <?php
-<?php
 /*
 Plugin Name: AC Social Counter
 Description: Uses the SharedCount.com API to define the most popular blogs of a WordPress install.
@@ -10,11 +9,12 @@ Author: Martijn Engler
 Author URI: http://applecoach.nl/
 */
 
+$posts = array();
 // fetch posts via Wp_Auery magic
 foreach($posts as $post)
 {
-  $permalink = get_permalink($post);
+  // $permalink = get_permalink($post);
   // $counts[$post->ID] = get_social_count($post);
 }
-natsort($counts);
+// natsort($counts);
 // display first natsort
