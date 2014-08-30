@@ -6,13 +6,15 @@ class AC_SocialCount
   protected $_weighted  = true;
   protected $_scores    = null;
 
-  public function __construct($url, $weighted = true)
+  public function __construct($post_id, $url, $weighted = true)
   {
+    $this->_post_id   = $post_id;
     $this->_url       = $url;
     $this->_weighted  = $weighted;
 
     $response       = new ACSC_Response($this->_url);
     $this->_scores  = $response->get_response();
+    $this->_scores["wp_comments"] = wp_count_comments($this->_post_id)->total_comments;
   }
 
   public function calculate_score()
