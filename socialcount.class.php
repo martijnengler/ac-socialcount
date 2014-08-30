@@ -8,11 +8,11 @@ class AC_SocialCount
 
   public function __construct($url, $weighted = true)
   {
-    $response = new ACSC_Response($this->_url);
-
     $this->_url       = $url;
     $this->_weighted  = $weighted;
-    $this->_scores    = $response->get_response();
+
+    $response       = new ACSC_Response($this->_url);
+    $this->_scores  = $response->get_response();
   }
 
   public function calculate_score()
